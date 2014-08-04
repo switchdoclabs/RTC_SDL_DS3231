@@ -8,3 +8,4 @@ Clone respository and run testDS3231.py to test
 More Information on www.switchdoc.com
 
 
+8/4/2014 - added getTemp to read DS3231 Temperature

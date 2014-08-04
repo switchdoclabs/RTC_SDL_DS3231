@@ -42,4 +42,5 @@ while True:
 	
 	print "DS3231=\t\t%s" % ds3231.read_datetime()
 
+	print "DS3231 Temp=", ds3231.getTemp()
 	time.sleep(10.0)

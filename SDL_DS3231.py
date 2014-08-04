@@ -202,3 +202,9 @@ class SDL_DS3231():
         """
         self.write_datetime(datetime.now())
 
+
+
+    def getTemp(self):
+   	byte_tmsb = self._bus.read_byte_data(self._addr,0x11)
+   	byte_tlsb = bin(self._bus.read_byte_data(self._addr,0x12))[2:].zfill(8)
+   	return byte_tmsb+int(byte_tlsb[0])*2**(-1)+int(byte_tlsb[1])*2**(-2)
