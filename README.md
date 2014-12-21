@@ -1,11 +1,12 @@
 
-Raspberry Pi Python Library for DS3231 RTC
+Raspberry Pi Python Library for SwitchDoc Labs DS3231/AT24C32 RTC Module
 
-SwitchDoc Labs, LLC  August 3, 2014
+SwitchDoc Labs, LLC  December 19, 2014
 
 Clone respository and run testDS3231.py to test
 
 More Information on www.switchdoc.com
 
+Runs RTC and EEPROM
 
-8/4/2014 - added getTemp to read DS3231 Temperature
+
