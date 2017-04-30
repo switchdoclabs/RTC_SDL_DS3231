@@ -36,17 +36,13 @@ import time
 import smbus
 
 
-def _bcd_to_int(bcd):
-    """Decode a 2x4bit BCD to a integer.
+def _bcd_to_int(bcd, n=2):
+    """Decode n least significant packed binary coded decimal digits to binary.
+    Return binary result.
+    n defaults to 2 (BCD digits).
+    n=0 decodes all digits.
     """
-    out = 0
-    for d in (bcd >> 4, bcd):
-        for p in (1, 2, 4 ,8):
-            if d & 1:
-                out += p
-            d >>= 1
-        out *= 10
-    return out / 10
+    return int(('%x' % bcd)[-n:])
 
 
 def _int_to_bcd(n):
