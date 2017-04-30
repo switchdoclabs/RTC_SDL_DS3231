@@ -4,12 +4,12 @@
 # SwitchDoc Labs 12/19/2014
 # V 1.2
 # only works in 24 hour mode
-# now includes reading and writing the AT24C32 included on the SwitchDoc Labs 
-#	DS3231 / AT24C32 Module (www.switchdoc.com
+# now includes reading and writing the AT24C32 included on the SwitchDoc Labs
+#       DS3231 / AT24C32 Module (www.switchdoc.com
 
 
 #encoding: utf-8
- 
+
 # Copyright (C) 2013 @XiErCh
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -68,8 +68,6 @@ class SDL_DS3231():
     _REG_YEAR = 0x06
     _REG_CONTROL = 0x07
 
-
-
     ###########################
     # DS3231 Code
     ###########################
@@ -85,12 +83,9 @@ class SDL_DS3231():
 
 
     def _read(self, data):
-
         returndata = self._bus.read_byte_data(self._addr, data)
         #print "addr = 0x%x data = 0x%x %i returndata = 0x%x %i " % (self._addr, data, data, returndata, _bcd_to_int(returndata))
         return returndata
-
-
 
 
     def _read_seconds(self):
@@ -103,8 +98,8 @@ class SDL_DS3231():
 
     def _read_hours(self):
         d = self._read(self._REG_HOURS)
-	if (d == 0x64):
-		d = 0x40
+        if (d == 0x64):
+            d = 0x40
         return _bcd_to_int(d & 0x3F)
 
 
@@ -158,7 +153,7 @@ class SDL_DS3231():
         if seconds is not None:
             if seconds < 0 or seconds > 59:
                 raise ValueError('Seconds is out of range [0,59].')
-	    seconds_reg = _int_to_bcd(seconds)
+            seconds_reg = _int_to_bcd(seconds)
             self._write(self._REG_SECONDS, seconds_reg)
 
         if minutes is not None:
@@ -205,38 +200,32 @@ class SDL_DS3231():
         self.write_datetime(datetime.now())
 
 
-
     def getTemp(self):
-   	byte_tmsb = self._bus.read_byte_data(self._addr,0x11)
-   	byte_tlsb = bin(self._bus.read_byte_data(self._addr,0x12))[2:].zfill(8)
-   	return byte_tmsb+int(byte_tlsb[0])*2**(-1)+int(byte_tlsb[1])*2**(-2)
+        byte_tmsb = self._bus.read_byte_data(self._addr,0x11)
+        byte_tlsb = bin(self._bus.read_byte_data(self._addr,0x12))[2:].zfill(8)
+        return byte_tmsb+int(byte_tlsb[0])*2**(-1)+int(byte_tlsb[1])*2**(-2)
 
     ###########################
     # AT24C32 Code
     ###########################
 
     def set_current_AT24C32_address(self,address):
-	a1=address/256;
-  	a0=address%256;
-  	self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0])
+        a1=address/256;
+        a0=address%256;
+        self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0])
 
-	
+
     def read_AT24C32_byte(self, address):
         #print "i2c_address =0x%x eepromaddress = 0x%x  " % (self._at24c32_addr, address)
 
         self.set_current_AT24C32_address(address)
-	return self._bus.read_byte(self._at24c32_addr)
+        return self._bus.read_byte(self._at24c32_addr)
 
-	
 
     def write_AT24C32_byte(self, address, value):
         #print "i2c_address =0x%x eepromaddress = 0x%x value = 0x%x %i " % (self._at24c32_addr, address, value, value)
-	
 
-	a1=address/256;
-  	a0=address%256;
-  	self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0, value])
-	time.sleep(0.20)
-
-
-
+        a1=address/256;
+        a0=address%256;
+        self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0, value])
+        time.sleep(0.20)
