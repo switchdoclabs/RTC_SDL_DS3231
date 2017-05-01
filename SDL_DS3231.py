@@ -68,6 +68,7 @@ class SDL_DS3231():
 
     ###########################
     # DS3231 Code
+    # datasheet: https://datasheets.maximintegrated.com/en/ds/DS3231.pdf
     ###########################
     def __init__(self, twi=1, addr=0x68, at24c32_addr=0x56):
         self._bus = smbus.SMBus(twi)
@@ -205,6 +206,7 @@ class SDL_DS3231():
 
     ###########################
     # AT24C32 Code
+    # datasheet: atmel.com/Images/doc0336.pdf
     ###########################
 
     def set_current_AT24C32_address(self,address):
