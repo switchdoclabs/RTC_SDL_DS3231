@@ -208,8 +208,7 @@ class SDL_DS3231():
     ###########################
 
     def set_current_AT24C32_address(self,address):
-        a1=address/256;
-        a0=address%256;
+        a1, a0 = divmod(address, 1<<8)
         self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0])
 
 
@@ -222,8 +221,6 @@ class SDL_DS3231():
 
     def write_AT24C32_byte(self, address, value):
         #print "i2c_address =0x%x eepromaddress = 0x%x value = 0x%x %i " % (self._at24c32_addr, address, value, value)
-
-        a1=address/256;
-        a0=address%256;
+        a1, a0 = divmod(address, 1<<8)
         self._bus.write_i2c_block_data(self._at24c32_addr,a1,[a0, value])
         time.sleep(0.20)
